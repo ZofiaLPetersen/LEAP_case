@@ -1,0 +1,1 @@
+select * from case_ecom.datafeeds.product_views_and_purchases as raw_data
