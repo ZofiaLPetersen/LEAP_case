@@ -4,7 +4,9 @@ with source_data as (
 
     select *
     from {{ source('raw', 'amazon') }}
-    where upper(trim(product_id)) != 'product_id'
+    where not (
+        lower(trim(product_name)) = 'product_name'
+    )
 
 ),
 

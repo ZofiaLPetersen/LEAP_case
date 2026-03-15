@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "One row per product."
+    columns:
+      - name: product_id
+        description: "Unique identifier for each product."
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_users
+    description: "One row per user."
+    columns:
+      - name: user_id
+        description: "Unique identifier for each user."
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_reviews
+    description: "One row per review."
+    columns:
+      - name: review_id
+        description: "Unique identifier for each review."
+        tests:
+          - not_null
+          - unique
+      - name: product_id
+        description: "Foreign key to dim_products."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: user_id
+        description: "Foreign key to dim_users."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_users')
+                field: user_id
