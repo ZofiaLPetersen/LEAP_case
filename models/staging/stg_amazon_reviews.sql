@@ -5,7 +5,8 @@ with source_data as (
     select *
     from {{ source('raw', 'amazon') }}
     where not (
-        lower(trim(product_name)) = 'product_name'
+        upper(trim(product_id)) = 'PRODUCT_ID'
+        and upper(trim(product_name)) = 'PRODUCT_NAME'
     )
 
 ),
@@ -45,8 +46,12 @@ final as (
         product_id,
         product_name,
         category,
+
         discounted_price,
         actual_price,
+        round(discounted_price * 0.011, 2) as discounted_price_eur,
+        round(actual_price * 0.011, 2) as actual_price_eur,
+
         discount_percentage,
         rating,
         rating_count,
@@ -58,15 +63,21 @@ final as (
         review_id,
         review_title,
         review_content,
+
         actual_price - discounted_price as discount_amount,
+        round((actual_price - discounted_price) * 0.011, 2) as discount_amount_eur,
+
         case
             when actual_price > 0 then round((actual_price - discounted_price) / actual_price * 100, 2)
             else null
         end as calculated_discount_pct,
+
         length(coalesce(review_content, '')) as review_content_length,
         length(coalesce(review_title, '')) as review_title_length,
+
         case when review_content is not null then 1 else 0 end as has_review_content,
         case when review_title is not null then 1 else 0 end as has_review_title
+
     from cleaned
 
 )
