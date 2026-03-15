@@ -4,6 +4,8 @@ select distinct
     product_id,
     product_name,
     category,
+    discounted_price,
+    actual_price,
     discounted_price_eur,
     actual_price_eur,
     discount_percentage,
@@ -13,6 +15,7 @@ select distinct
     img_link,
     product_link,
     discount_amount,
+    discount_amount_eur,
     calculated_discount_pct
 from {{ ref('stg_amazon_reviews') }}
 where product_id is not null
