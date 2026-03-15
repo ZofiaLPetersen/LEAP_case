@@ -22,8 +22,8 @@ models:
   - name: fct_reviews
     description: "One row per review."
     columns:
-      - name: review_id
-        description: "Unique identifier for each review."
+      - name: review_sk
+        description: "Surrogate key for review fact."
         tests:
           - not_null
           - unique
