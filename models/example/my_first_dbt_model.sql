@@ -11,12 +11,14 @@
 
 with raw_data as (
 
-    select  as id
+    select
+        PRODUCT_ID as id
+    from case.raw.amazon
 
 )
 
 select *
-from raw_dara
+from raw_data
 
 /*
     Uncomment the line below to remove records with null `id` values

@@ -1,0 +1,6 @@
+sources:
+  - name: raw
+    database: CASE
+    schema: RAW
+    tables:
+      - name: amazon
