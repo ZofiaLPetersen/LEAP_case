@@ -1,4 +1,4 @@
-version: 2
+version: 3
 
 sources:
   - name: raw
@@ -6,3 +6,16 @@ sources:
     schema: RAW
     tables:
       - name: amazon
+        columns:
+          - name: product_id
+            tests:
+              - not_null
+
+          - name: review_id
+            tests:
+              - not_null
+              - unique
+
+          - name: user_id
+            tests:
+              - not_null
