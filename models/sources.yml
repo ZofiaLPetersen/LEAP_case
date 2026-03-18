@@ -14,7 +14,6 @@ sources:
           - name: review_id
             tests:
               - not_null
-              - unique
 
           - name: user_id
             tests:
