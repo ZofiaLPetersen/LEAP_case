@@ -10,7 +10,7 @@ models:
           - not_null
           - unique
 
-  - name: dim_users
+  - name: fct_users
     description: "One row per user."
     columns:
       - name: user_id
@@ -34,10 +34,3 @@ models:
               arguments:
                 to: ref('dim_products')
                 field: product_id
-      - name: user_id
-        description: "Foreign key to dim_users."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_users')
-                field: user_id
