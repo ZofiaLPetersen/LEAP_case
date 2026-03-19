@@ -58,7 +58,7 @@ select
     c.img_link,
     c.product_link,
 
-    -- ✅ aligned splitting
+
     nullif(trim(ids.value::string), '')   as review_id,
     nullif(trim(users.value::string), '') as user_id,
     nullif(trim(names.value::string), '') as user_name,
@@ -72,7 +72,6 @@ lateral flatten(input => split(c.review_id, ',')) ids,
 lateral flatten(input => split(c.user_id, ',')) users,
 lateral flatten(input => split(c.user_name, ',')) names
 
--- 🔑 critical alignment شرط
 where ids.index = users.index
   and ids.index = names.index
 
