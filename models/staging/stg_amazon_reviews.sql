@@ -40,6 +40,39 @@ cleaned as (
 
 ),
 
+-- 🔥 NEW: explode comma-separated review_ids
+exploded as (
+
+    select
+        c.product_id,
+        c.product_name,
+        c.category,
+
+        c.discounted_price,
+        c.actual_price,
+        c.discount_percentage,
+
+        c.rating,
+        c.rating_count,
+
+        c.about_product,
+        c.img_link,
+        c.product_link,
+
+        c.user_id,
+        c.user_name,
+
+        -- split review_id into individual rows
+        nullif(trim(split_ids.value), '') as review_id,
+
+        c.review_title,
+        c.review_content
+
+    from cleaned c,
+    lateral split_to_table(c.review_id, ',') split_ids
+
+),
+
 final as (
 
     select
@@ -78,7 +111,7 @@ final as (
         case when review_content is not null then 1 else 0 end as has_review_content,
         case when review_title is not null then 1 else 0 end as has_review_title
 
-    from cleaned
+    from exploded
 
 )
 
