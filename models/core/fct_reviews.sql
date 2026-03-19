@@ -23,13 +23,13 @@ with
     )
 
 select
-    md5(
+    
         coalesce(review_id, '')
         || '|'
         || coalesce(product_id, '')
         || '|'
         || coalesce(user_id, '')
-    ) as review_sk,
+    as review_sk,
     review_id,
     product_id,
     user_id,
